@@ -1,0 +1,55 @@
+{
+    "name": "download-github-code",
+    "version": "1.0.0",
+    "description": "Download a GitHub project source code (only the code, without the .git data)",
+    "main": "out/index.js",
+    "types": "out/index.d.ts",
+    "scripts": {
+        "start": "node out/index.js",
+        "test": "jest --watch",
+        "prepublishOnly": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/diegozanon/download-github-code"
+    },
+    "engines": {
+        "node": ">=0.10.3"
+    },
+    "keywords": [
+        "download",
+        "github",
+        "repo",
+        "repository",
+        "source code",
+        "zip"
+    ],
+    "author": "Diego Zanon",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/diegozanon/download-github-code/issues"
+    },
+    "homepage": "https://github.com/diegozanon/download-github-code#readme",
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "testMatch": [
+            "<rootDir>/tests/*.ts"
+        ],
+        "testRunner": "jest-circus/runner"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.14",
+        "@types/request": "^2.48.5",
+        "@typescript-eslint/eslint-plugin": "^4.4.0",
+        "@typescript-eslint/parser": "^4.4.0",
+        "eslint": "^7.11.0",
+        "jest": "^26.5.3",
+        "jest-circus": "^26.5.3",
+        "ts-jest": "^26.4.1",
+        "typescript": "^4.0.3"
+    },
+    "dependencies": {
+        "axios": "^0.20.0"
+    }
+}
