@@ -5,7 +5,7 @@ export const buildUrl = async (url?: string, options?: Options): Promise<string>
     const modifiedUrl = await buildWithString(url) || await buildWithOptions(options);
 
     if (!isValid(modifiedUrl))
-        throw `The URL was modified to "${modifiedUrl}", but it is not valid.`
+        throw `The URL was modified to '${modifiedUrl}', but it is not valid.`
 
     return modifiedUrl;
 }
@@ -17,11 +17,7 @@ const buildWithString = async (url?: string): Promise<string> => {
     }
 
     url = url.replace('http://', 'https://');
-
-    if (url.endsWith('.git')) {
-        url = url.slice(0, -4);
-        url = url.replace('git@github.com:', 'https://github.com/');
-    }
+    url = url.replace('git@github.com:', 'https://github.com/');
 
     if (url.startsWith('github.com')) {
         url = url.replace('github.com', 'https://github.com');
@@ -32,6 +28,10 @@ const buildWithString = async (url?: string): Promise<string> => {
 
     branch = branch || await getDefaultBranch(url);
 
+    if (url.endsWith('.git')) {
+        url = url.slice(0, -4);
+    }
+
     return `${url}/archive/${branch}.zip`;
 }
 
@@ -39,6 +39,14 @@ const buildWithOptions = async (options?: Options): Promise<string> => {
 
     if (!options) {
         throw 'Error: invalid input parameters. You need to inform the URL with a string or using the options object';
+    }
+
+    if (!options.username) {
+        throw 'Error: invalid username';
+    }
+
+    if (!options.repo) {
+        throw 'Error: invalid repository';
     }
 
     const url = `https://github.com/${options.username}/${options.repo}`;
@@ -65,6 +73,6 @@ const getDefaultBranch = async (url: string): Promise<string> => {
 
 const isValid = (url: string): boolean => {
     // This regex "[^/]*" means "any character, except slash"
-    const regex = new RegExp('https:\/\/github\.com\/[^/]*\/[^/]*#[^/]*', 'i')
+    const regex = new RegExp('https://github\.com/[^/]*/[^/]*/archive/[^/]*\.zip', 'i');
     return regex.test(url);
 }
