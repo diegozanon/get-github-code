@@ -13,9 +13,6 @@
         "type": "git",
         "url": "git+https://github.com/diegozanon/download-github-code"
     },
-    "engines": {
-        "node": ">=0.10.3"
-    },
     "keywords": [
         "download",
         "github",
