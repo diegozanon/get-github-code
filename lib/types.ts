@@ -1,15 +1,15 @@
 /**
- * Those are the options to download a github project code
+ * Those are the options to download a github project code.
  *
- * @field {string} username is the GitHub username
- * @field {string} repo is the GitHub project name
- * @field {string} [branch] is the project name (if none, default branch name will be retrieved)
- * @field {string} [output] is where the files will be written in disk
- * @field {boolean} [zip] is whether a zip file should be written instead of writing all files
+ * @field {string} [username] is the GitHub username (should be undefined if URL was given).
+ * @field {string} [repo] is the GitHub project name (should be undefined if URL was given).
+ * @field {string} [branch] is the project name (if none, default branch name will be retrieved).
+ * @field {string} [output] is where the files will be written in disk (will be ignored if running in a browser).
+ * @field {boolean} [zip] is whether a zip file should be written instead of writing all files (always true if running in a browser).
  */
 export interface Options {
-    username: string,
-    repo: string,
+    username?: string,
+    repo?: string,
     branch?: string,
     output?: string,
     zip?: boolean
