@@ -23,7 +23,7 @@ const download: Download = async (url?: any, options?: Options): Promise<void> =
 
     url = await buildUrl(url, options);
 
-    const isWeb = typeof window !== undefined;
+    const isWeb = typeof window !== 'undefined';
     const responseType = isWeb ? 'blob' : 'stream';
 
     const filename = await getFilename(isWeb, url, options);

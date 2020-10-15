@@ -38,12 +38,12 @@ describe('test the url validation', () => {
 
         for (const valid of valids) {
             const { url, options } = { ...valid };
-            expect(buildUrl(url, options)).resolves.toBe('https://github.com/diegozanon/download-github-code/archive/main.zip');
+            await expect(buildUrl(url, options)).resolves.toBe('https://github.com/diegozanon/download-github-code/archive/main.zip');
         }
 
         for (const invalid of invalids) {
             const { url, options } = { ...invalid };
-            expect(buildUrl(url, options)).rejects.toBeTruthy();
+            await expect(buildUrl(url, options)).rejects.toBeTruthy();
         }
     });
 });

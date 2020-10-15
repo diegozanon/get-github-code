@@ -25,6 +25,8 @@ export const writeOutput = async (data: any, filename: string, isWeb: boolean): 
     } else {
         try {
 
+            filename = path.resolve('./', filename);
+
             await createDirIfNecessary(filename);
 
             let needsUnzip = false;
@@ -40,14 +42,15 @@ export const writeOutput = async (data: any, filename: string, isWeb: boolean): 
                 writer.on('finish', async () => {
 
                     if (needsUnzip) {
-                        await decompress(filename);
+                        const parentFolder = path.join(path.dirname(filename), '..');
+                        await decompress(filename, parentFolder);
                         await fs.promises.unlink(filename);
                     }
 
                     resolve();
                 });
 
-                writer.on('error', reject); // test-
+                writer.on('error', reject);
             });
         } catch (err) {
             addErrMsg(err, 'could not write the downloaded files to the local disk.');
@@ -63,8 +66,8 @@ const createDirIfNecessary = async (filename: string): Promise<void> => {
     }
 
     if (path.extname(filename)) {
-        fs.promises.mkdir(path.dirname(filename), { recursive: true });
+        await fs.promises.mkdir(path.dirname(filename), { recursive: true });
     } else {
-        fs.promises.mkdir(filename, { recursive: true });
+        await fs.promises.mkdir(filename, { recursive: true });
     }
 }
