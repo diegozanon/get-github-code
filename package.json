@@ -21,6 +21,9 @@
         "source code",
         "zip"
     ],
+    "engines": {
+        "node": ">= 10.0.0"
+    },
     "author": "Diego Zanon",
     "license": "MIT",
     "bugs": {
