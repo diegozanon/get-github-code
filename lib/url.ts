@@ -71,7 +71,7 @@ const buildWithOptions = async (options?: Options): Promise<string> => {
 
 const getDefaultBranch = async (url: string): Promise<string> => {
 
-    url = url.replace('://github.com', '://api.github.com');
+    url = url.replace('://github.com', '://api.github.com/repos');
 
     const headers = {
         Accept: 'application/vnd.github.v3+json'
@@ -81,7 +81,7 @@ const getDefaultBranch = async (url: string): Promise<string> => {
         const response = await axios.get(url, { headers });
         return response.data.default_branch;
     } catch (err) {
-        addErrMsg(err, 'error trying to get the default branch. Try again passing the branch name: https://github.com/<user>/<repo>#<branch>');
+        addErrMsg(err, 'error trying to get the default branch. Try again passing the branch name in this format: https://github.com/<user>/<repo>#<branch>');
         throw err;
     }
 }

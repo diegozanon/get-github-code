@@ -1,34 +1,37 @@
-import axios from 'axios';
+import * as fs from 'fs';
+import * as path from 'path';
+import { exist } from '../lib/fs-utils';
 import { download, Options } from '../index';
-import { buildUrl } from '../lib/url';
 
-jest.mock('axios');
-const axiosGet = axios.get as jest.Mock;
+describe('test this package', () => {
 
-jest.mock('../lib/url');
-const buildUrlMock = buildUrl as jest.Mock;
+    const url = 'https://github.com/diegozanon/download-github-code';
 
-beforeEach(() => {
-    axiosGet.mockReset();
-    buildUrlMock.mockReset();
-});
-
-describe('test this lib', () => {
-
-    it('checks if filename is correct', async () => {
-        // buildUrlMock.mockResolvedValue('https://github.com/diegozanon/download-github-code/archive/main.zip');
-
-        // download('');
+    it('downloads unzipped', async () => {
+        await download(url);
+        expect(exist(path.resolve('./download-github-code-main/README.md'))).toBeTruthy();
     });
 
-    // it('checks if zip file was downloaded', async () => {
-    //     const options: Options = {
-    //         username: 'diegozanon',
-    //         repo: 'download-github-code',
-    //         branch: 'main',
-    //         zip: true
-    //     };
+    it('downloads a zip', async () => {
+        await download(url, { zip: true } as Options);
+        expect(exist(path.resolve('./download-github-code-main.zip'))).toBeTruthy();
+    });
 
-    //     await download('', options);
-    // });
+    it('downloads to a given directory', async () => {
+        await download(url, { output: './download' } as Options);
+        expect(exist(path.resolve('./download/download-github-code-main/README.md'))).toBeTruthy();
+    });
+
+    it('downloads using a given filename', async () => {
+        await download(url, { output: './my-download.zip' } as Options);
+        expect(exist(path.resolve('./my-download.zip'))).toBeTruthy();
+    });
+});
+
+afterAll(async () => {
+    // clear downloaded files
+    await fs.promises.unlink('./download-github-code-main');
+    await fs.promises.unlink('./download-github-code-main.zip');
+    await fs.promises.unlink('./download');
+    await fs.promises.unlink('./my-download.zip');
 });

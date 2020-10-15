@@ -1,7 +1,9 @@
 import * as decompress from 'decompress';
 import * as fs from 'fs';
 import webDownload from 'js-file-download';
+import * as path from 'path';
 import { addErrMsg } from './error';
+import { exist } from './fs-utils';
 
 /**
  * Writes the output to disk (if Node.js) or makes the browser to download it (if Web).
@@ -23,9 +25,11 @@ export const writeOutput = async (data: any, filename: string, isWeb: boolean): 
     } else {
         try {
 
+            await createDirIfNecessary(filename);
+
             let needsUnzip = false;
             if (!filename.endsWith('.zip')) {
-                filename += '/file.zip';
+                filename += '/file.zip'; // temporary file
                 needsUnzip = true;
             }
 
@@ -43,11 +47,24 @@ export const writeOutput = async (data: any, filename: string, isWeb: boolean): 
                     resolve();
                 });
 
-                writer.on('error', reject); // test
+                writer.on('error', reject); // test-
             });
         } catch (err) {
             addErrMsg(err, 'could not write the downloaded files to the local disk.');
             throw err;
         }
+    }
+}
+
+const createDirIfNecessary = async (filename: string): Promise<void> => {
+
+    if (await exist(filename)) {
+        return;
+    }
+
+    if (path.extname(filename)) {
+        fs.promises.mkdir(path.dirname(filename), { recursive: true });
+    } else {
+        fs.promises.mkdir(filename, { recursive: true });
     }
 }

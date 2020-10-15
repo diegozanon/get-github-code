@@ -1,5 +1,5 @@
-import * as fs from 'fs';
 import * as path from 'path';
+import { exist, isDir } from './fs-utils';
 import { Options } from './types';
 
 /**
@@ -27,17 +27,20 @@ export const getFilename = async (isWeb: boolean, url: string, options?: Options
 
     if (options?.output) {
 
-        let isDir;
-        try {
-            isDir = (await fs.promises.lstat(options.output)).isDirectory();
-        } catch (_) {
-            isDir = false;
-        }
+        const out = path.resolve(options.output);
 
-        if (isDir) {
-            filename = path.resolve(options.output, filename);
+        if (await exist(out)) {
+            if (await isDir(out)) {
+                filename = path.resolve(out, filename);
+            } else {
+                filename = out;
+            }
         } else {
-            filename = options.output;
+            if (!path.extname(out)) {
+                filename = path.resolve(out, filename);
+            } else {
+                filename = out;
+            }
         }
     }
 
