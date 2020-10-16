@@ -52,7 +52,6 @@
     "dependencies": {
         "@types/decompress": "^4.2.3",
         "axios": "^0.20.0",
-        "decompress": "^4.2.1",
-        "js-file-download": "^0.4.12"
+        "decompress": "^4.2.1"
     }
 }
