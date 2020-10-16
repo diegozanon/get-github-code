@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test</title>
+</head>
+
+<body>
+    <script src="./download-github-code.min.js"></script>
+    <script>
+        var url = 'https://github.com/diegozanon/download-github-code#main';
+        window.downloadGithubCode.download(url)
+            .then(() => { console.log('ok') })
+            .catch(alert);
+    </script>
+</body>
+
+</html>

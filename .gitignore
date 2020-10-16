@@ -6,3 +6,6 @@ out/
 
 # macOS
 .DS_Store
+
+# test
+tests/web/download-github-code.min.js
