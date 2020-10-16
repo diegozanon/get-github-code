@@ -1,6 +1,6 @@
 {
     "name": "download-github-code",
-    "version": "1.0.0",
+    "version": "1.0.0-rc1",
     "description": "Download a GitHub project source code (only the code, without the .git data)",
     "main": "out/index.js",
     "types": "out/index.d.ts",
