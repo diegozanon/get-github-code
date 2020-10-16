@@ -1,6 +1,5 @@
 import * as decompress from 'decompress';
 import * as fs from 'fs';
-import webDownload from 'js-file-download';
 import * as path from 'path';
 import { addErrMsg } from './error';
 import { exist } from './fs-utils';
@@ -70,4 +69,15 @@ const createDirIfNecessary = async (filename: string): Promise<void> => {
     } else {
         await fs.promises.mkdir(filename, { recursive: true });
     }
+}
+
+const webDownload = async (data: any, filename: string): Promise<void> => {
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    const blobURL = (window.URL && window.URL.createObjectURL) ? window.URL.createObjectURL(blob) : window.webkitURL.createObjectURL(blob);
+    let link = document.createElement('a');
+    link.style.display = 'none';
+    link.href = blobURL;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
 }

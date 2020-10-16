@@ -12,9 +12,9 @@ describe('test this package', () => {
         await expect(exist(path.resolve('./download-github-code-main/README.md'))).resolves.toBeTruthy();
     });
 
-    it('downloads a zip', async () => {
-        await download(url, { zip: true } as Options);
-        await expect(exist(path.resolve('./download-github-code-main.zip'))).resolves.toBeTruthy();
+    it('downloads another branch and is a zip file', async () => {
+        await download(url + '#develop', { zip: true } as Options);
+        await expect(exist(path.resolve('./download-github-code-develop.zip'))).resolves.toBeTruthy();
     });
 
     it('downloads to a given directory', async () => {
@@ -31,7 +31,7 @@ describe('test this package', () => {
 afterAll(async () => {
     // clear downloaded files
     await rmdirRecursive('./download-github-code-main');
-    await fs.promises.unlink('./download-github-code-main.zip');
+    await fs.promises.unlink('./download-github-code-develop.zip');
     await rmdirRecursive('./download');
     await fs.promises.unlink('./my-download.zip');
 });

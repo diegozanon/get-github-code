@@ -37,6 +37,8 @@ const buildWithString = async (url?: string): Promise<string> => {
         url = url.replace('github.com', 'https://github.com');
     }
 
+    url = url.replace('https://github.com', 'https://codeload.github.com');
+
     let branch;
     [url, branch] = url.split('#');
 
@@ -46,7 +48,7 @@ const buildWithString = async (url?: string): Promise<string> => {
         url = url.slice(0, -4);
     }
 
-    return `${url}/archive/${branch}.zip`;
+    return `${url}/zip/${branch}`;
 }
 
 const buildWithOptions = async (options?: Options): Promise<string> => {
@@ -63,15 +65,15 @@ const buildWithOptions = async (options?: Options): Promise<string> => {
         throw new Error('invalid repository.');
     }
 
-    const url = `https://github.com/${options.username}/${options.repo}`;
+    const url = `https://codeload.github.com/${options.username}/${options.repo}`;
 
     const branch = options.branch || await getDefaultBranch(url);
-    return `${url}/archive/${branch}.zip`;
+    return `${url}/zip/${branch}`;
 }
 
 const getDefaultBranch = async (url: string): Promise<string> => {
 
-    url = url.replace('://github.com', '://api.github.com/repos');
+    url = url.replace('://codeload.github.com', '://api.github.com/repos');
 
     const headers = {
         Accept: 'application/vnd.github.v3+json'
@@ -88,6 +90,6 @@ const getDefaultBranch = async (url: string): Promise<string> => {
 
 const isValid = (url: string): boolean => {
     // This regex "[^/]*" means "any character, except slash"
-    const regex = new RegExp('https://github\.com/[^/]*/[^/]*/archive/[^/]*\.zip');
+    const regex = new RegExp('https://codeload\.github\.com/[^/]*/[^/]*/zip/[^/]*');
     return regex.test(url);
 }

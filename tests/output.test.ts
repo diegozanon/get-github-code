@@ -4,7 +4,7 @@ import { getFilename } from '../lib/output';
 
 describe('test if the output is set correctly', () => {
 
-    const url = 'https://github.com/username/repo/archive/branch.zip';
+    const url = 'https://codeload.github.com/username/repo/zip/branch';
 
     it('checks if filename is returned correctly for web', async () => {
 

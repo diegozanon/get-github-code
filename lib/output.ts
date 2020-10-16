@@ -3,7 +3,7 @@ import { exist, isDir } from './fs-utils';
 import { Options } from './types';
 
 /**
- * Downloads a GitHub project source code, but only the code without the .git data.
+ * Gets the filename of the file to save in disk
  *
  * @param {boolean} isWeb - `true` if running in the browser and `false` if running with Node.js.
  * @param {string} [url] - The url of the GitHub repository (add #<branch> at the end to specify the branch).
@@ -12,8 +12,8 @@ import { Options } from './types';
  */
 export const getFilename = async (isWeb: boolean, url: string, options?: Options): Promise<string> => {
 
-    // url format: https://github.com/username/repo/archive/branch.zip
-    const file = url.split('/').pop();
+    // url format: https://codeload.github.com/username/repo/zip/branch
+    const file = url.split('/').pop() + '.zip';
     const repo = url.split('/').slice(-3).shift();
 
     let filename = `${repo}-${file}`;

@@ -38,7 +38,7 @@ describe('test the url validation', () => {
 
         for (const valid of valids) {
             const { url, options } = { ...valid };
-            await expect(buildUrl(url, options)).resolves.toBe('https://github.com/diegozanon/download-github-code/archive/main.zip');
+            await expect(buildUrl(url, options)).resolves.toBe('https://codeload.github.com/diegozanon/download-github-code/zip/main');
         }
 
         for (const invalid of invalids) {
