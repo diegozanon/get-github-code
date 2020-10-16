@@ -22,21 +22,17 @@ type Download = {
 const download: Download = async (url?: any, options?: Options): Promise<void> => {
 
     url = await buildUrl(url, options);
-
-    const isWeb = typeof window !== 'undefined';
-    const responseType = isWeb ? 'blob' : 'stream';
-
-    const filename = await getFilename(isWeb, url, options);
+    const filename = await getFilename(url, options);
 
     let response;
     try {
-        response = await axios.get(url, { responseType });
+        response = await axios.get(url, { responseType: 'stream' });
     } catch (err) {
         addErrMsg(err, 'could not download the source code.');
         throw err;
     }
 
-    await writeOutput(response.data, filename, isWeb);
+    await writeOutput(response.data, filename);
 }
 
 export { download };
