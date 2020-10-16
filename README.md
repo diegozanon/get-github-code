@@ -1,5 +1,5 @@
 # download-github-code
-Download a GitHub project source code (only the code, without the .git data).
+Downloads a GitHub project source code, but only the code without the .git data.
 
 ## Install  
 
