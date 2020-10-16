@@ -54,7 +54,7 @@ const createDirIfNecessary = async (filename: string): Promise<void> => {
         return;
     }
 
-    if (path.extname(filename)) {
+    if (filename.endsWith('.zip')) {
         await fs.promises.mkdir(path.dirname(filename), { recursive: true });
     } else {
         await fs.promises.mkdir(filename, { recursive: true });

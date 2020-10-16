@@ -1,19 +1,19 @@
 import * as path from 'path';
 import { exist, isDir } from './fs-utils';
-import { Options } from './types';
+import { DownloadOptions } from './types';
 
 /**
  * Gets the filename of the file to save to disk
  *
  * @param {string} [url] - The url of the GitHub repository (add #<branch> at the end to specify the branch).
- * @param {Options} [options] - The options for the download command.
+ * @param {DownloadOptions} [options] - The options for the download command.
  * @returns {string} Returns the filename.
  */
-export const getFilename = async (url: string, options?: Options): Promise<string> => {
+export const getFilename = async (url: string, options?: DownloadOptions): Promise<string> => {
 
-    // url format: https://codeload.github.com/username/repo/zip/branch
-    const file = url.split('/').pop() + '.zip';
-    const repo = url.split('/').slice(-3).shift();
+    // url format: https://codeload.github.com/username/repo/zip/branch where branch name may have slashes
+    const file = url.split('/zip/').pop()?.replace(/\//g, '-') + '.zip';
+    const repo = url.split('/zip/').shift()?.split('/').pop();
 
     let filename = `${repo}-${file}`;
 

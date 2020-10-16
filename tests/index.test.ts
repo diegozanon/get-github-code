@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { exist, rmdirRecursive } from '../lib/fs-utils';
-import { download, Options } from '../index';
+import { download, DownloadOptions } from '../index';
 
 describe('test this package', () => {
 
@@ -13,17 +13,17 @@ describe('test this package', () => {
     });
 
     it('downloads another branch and is a zip file', async () => {
-        await download(url + '#develop', { zip: true } as Options);
+        await download(url + '#develop', { zip: true } as DownloadOptions);
         await expect(exist(path.resolve('./download-github-code-develop.zip'))).resolves.toBeTruthy();
     });
 
     it('downloads to a given directory', async () => {
-        await download(url, { output: './download' } as Options);
+        await download(url, { output: './download' } as DownloadOptions);
         await expect(exist(path.resolve('./download/download-github-code-main/README.md'))).resolves.toBeTruthy();
     });
 
     it('downloads using a given filename', async () => {
-        await download(url, { output: './my-download.zip' } as Options);
+        await download(url, { output: './my-download.zip' } as DownloadOptions);
         await expect(exist(path.resolve('./my-download.zip'))).resolves.toBeTruthy();
     });
 });

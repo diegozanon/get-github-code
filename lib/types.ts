@@ -7,7 +7,7 @@
  * @field {string} [output] is where the files will be written in disk.
  * @field {boolean} [zip] is whether a zip file should be written instead of writing all files.
  */
-export interface Options {
+export interface DownloadOptions {
     username?: string,
     repo?: string,
     branch?: string,

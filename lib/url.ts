@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { addErrMsg } from './error';
-import { Options } from './types';
+import { DownloadOptions } from './types';
 
 /**
  * Builds the URL that will be used to download the source code.
  *
  * @param {string} [url] - The url of the GitHub repository (add #<branch> at the end to specify the branch).
- * @param {Options} [options] - The options for the download command.
+ * @param {DownloadOptions} [options] - The options for the download command.
  * @returns {Promise<string>} Returns a valid URL.
  */
-export const buildUrl = async (url?: string, options?: Options): Promise<string> => {
+export const buildUrl = async (url?: string, options?: DownloadOptions): Promise<string> => {
     const modifiedUrl = await buildWithString(url) || await buildWithOptions(options);
 
     if (!isValid(modifiedUrl))
@@ -51,7 +51,7 @@ const buildWithString = async (url?: string): Promise<string> => {
     return `${url}/zip/${branch}`;
 }
 
-const buildWithOptions = async (options?: Options): Promise<string> => {
+const buildWithOptions = async (options?: DownloadOptions): Promise<string> => {
 
     if (!options) {
         throw new Error('invalid input parameters. You need to inform the URL with a string or using the options object.');

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Options } from '../lib/types';
+import { DownloadOptions } from '../lib/types';
 import { buildUrl } from '../lib/url';
 
 jest.mock('axios');
@@ -22,9 +22,9 @@ describe('test the url validation', () => {
             { url: 'github.com/diegozanon/download-github-code' },
             { url: 'git@github.com:diegozanon/download-github-code.git' },
             { url: 'git@github.com:diegozanon/download-github-code.git#main' },
-            { url: 'https://github.com/diegozanon/download-github-code', options: { username: 'other-user', repo: 'other-repo' } as Options },
-            { options: { username: 'diegozanon', repo: 'download-github-code' } as Options },
-            { options: { username: 'diegozanon', repo: 'download-github-code', branch: 'main' } as Options }
+            { url: 'https://github.com/diegozanon/download-github-code', options: { username: 'other-user', repo: 'other-repo' } as DownloadOptions },
+            { options: { username: 'diegozanon', repo: 'download-github-code' } as DownloadOptions },
+            { options: { username: 'diegozanon', repo: 'download-github-code', branch: 'main' } as DownloadOptions }
         ];
 
         const invalids = [
@@ -32,8 +32,8 @@ describe('test the url validation', () => {
             { url: 'https://example.com' },
             { url: 'https://github.com/diegozanon' },
             { url: 'https://github.com/download-github-code' },
-            { options: { username: 'diegozanon' } as Options },
-            { options: { repo: 'download-github-code' } as Options }
+            { options: { username: 'diegozanon' } as DownloadOptions },
+            { options: { repo: 'download-github-code' } as DownloadOptions }
         ];
 
         for (const valid of valids) {
