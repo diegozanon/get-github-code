@@ -1,10 +1,10 @@
-# download-github-code
+# get-github-code
 Downloads a GitHub project source code, but only the code without the .git data.
 
 ## Install  
 
 ```
-$ npm install download-github-code
+$ npm install get-github-code
 ```
 
 **Note**: it requires Node.js 10.x or greater.
@@ -14,11 +14,11 @@ $ npm install download-github-code
 Example using CommonJS:
 
 ```javascript
-const downloadGithubCode = require('download-github-code');
+const getGithubCode = require('get-github-code');
 
-const url = 'https://github.com/diegozanon/download-github-code';
+const url = 'https://github.com/diegozanon/get-github-code';
 
-downloadGithubCode(url)
+getGithubCode(url)
     .then(() => {
         console.log('success');
     })
@@ -28,10 +28,10 @@ downloadGithubCode(url)
 Example using ES Modules:
 
 ```javascript
-import { download } = from 'download-github-code';
+import { download } = from 'get-github-code';
 
 const downloadMyRepo = async () => {
-    const url = 'https://github.com/diegozanon/download-github-code';
+    const url = 'https://github.com/diegozanon/get-github-code';
 
     await download(url);
 }
@@ -58,7 +58,7 @@ If there is no `#<branch>` or `#<tag>` at the end, the request will use the repo
 If you are using TypeScript: 
 
 ```javascript
-import { download, DownloadOptions } from 'download-github-code';
+import { download, DownloadOptions } from 'get-github-code';
 
 const options: DownloadOptions = {
     username: 'the-username',
@@ -74,7 +74,7 @@ const options: DownloadOptions = {
 CommonJS:
 
 ```javascript
-const downloadGithubCode = require('download-github-code');
+const getGithubCode = require('get-github-code');
 
 const options = {
     username: 'the-username',

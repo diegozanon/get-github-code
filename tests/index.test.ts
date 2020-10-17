@@ -5,21 +5,21 @@ import { download, DownloadOptions } from '../index';
 
 describe('test this package', () => {
 
-    const url = 'https://github.com/diegozanon/download-github-code';
+    const url = 'https://github.com/diegozanon/get-github-code';
 
     it('downloads unzipped', async () => {
         await download(url);
-        await expect(exist(path.resolve('./download-github-code-main/README.md'))).resolves.toBeTruthy();
+        await expect(exist(path.resolve('./get-github-code-main/README.md'))).resolves.toBeTruthy();
     });
 
     it('downloads another branch and is a zip file', async () => {
         await download(url + '#develop', { zip: true } as DownloadOptions);
-        await expect(exist(path.resolve('./download-github-code-develop.zip'))).resolves.toBeTruthy();
+        await expect(exist(path.resolve('./get-github-code-develop.zip'))).resolves.toBeTruthy();
     });
 
     it('downloads to a given directory', async () => {
         await download(url, { output: './download' } as DownloadOptions);
-        await expect(exist(path.resolve('./download/download-github-code-main/README.md'))).resolves.toBeTruthy();
+        await expect(exist(path.resolve('./download/get-github-code-main/README.md'))).resolves.toBeTruthy();
     });
 
     it('downloads using a given filename', async () => {
@@ -30,8 +30,8 @@ describe('test this package', () => {
 
 afterAll(async () => {
     // clear downloaded files
-    await rmdirRecursive('./download-github-code-main');
-    await fs.promises.unlink('./download-github-code-develop.zip');
+    await rmdirRecursive('./get-github-code-main');
+    await fs.promises.unlink('./get-github-code-develop.zip');
     await rmdirRecursive('./download');
     await fs.promises.unlink('./my-download.zip');
 });

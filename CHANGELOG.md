@@ -11,5 +11,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-10-16  
 - Initial release  
 
-[Unreleased]: https://github.com/diegozanon/download-github-code/compare/v1.0.0...HEAD  
-[1.0.0]: https://github.com/diegozanon/download-github-code/releases/tag/v1.0.0  
+[Unreleased]: https://github.com/diegozanon/get-github-code/compare/v1.0.0...HEAD  
+[1.0.0]: https://github.com/diegozanon/get-github-code/releases/tag/v1.0.0  

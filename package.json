@@ -1,17 +1,17 @@
 {
-    "name": "download-github-code",
+    "name": "get-github-code",
     "version": "1.0.0-rc1",
-    "description": "Download a GitHub project source code (only the code, without the .git data)",
+    "description": "Downloads a GitHub project source code (only the code, without the .git data)",
     "main": "out/index.js",
     "types": "out/index.d.ts",
     "scripts": {
         "start": "node out/index.js",
-        "test": "jest -i --watch",
+        "test": "jest -i",
         "prepublishOnly": "tsc"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/diegozanon/download-github-code"
+        "url": "git+https://github.com/diegozanon/get-github-code"
     },
     "keywords": [
         "download",
@@ -27,9 +27,9 @@
     "author": "Diego Zanon",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/diegozanon/download-github-code/issues"
+        "url": "https://github.com/diegozanon/get-github-code/issues"
     },
-    "homepage": "https://github.com/diegozanon/download-github-code#readme",
+    "homepage": "https://github.com/diegozanon/get-github-code#readme",
     "jest": {
         "preset": "ts-jest",
         "testEnvironment": "node",
