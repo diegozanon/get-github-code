@@ -21,6 +21,11 @@ type Download = {
  */
 const download: Download = async (url?: any, options?: DownloadOptions): Promise<void> => {
 
+    if (typeof url === 'object') { // handle the function overload
+        options = url as DownloadOptions;
+        url = undefined;
+    }
+
     url = await buildUrl(url, options);
     const filename = await getFilename(url, options);
 
