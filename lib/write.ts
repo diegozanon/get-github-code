@@ -2,7 +2,7 @@ import * as decompress from 'decompress';
 import * as fs from 'fs';
 import * as path from 'path';
 import { addErrMsg } from './error';
-import { exist } from './fs-utils';
+import { exist, moveFilesUp } from './fs-utils';
 
 /**
  * Writes the output to disk
@@ -31,11 +31,19 @@ export const writeOutput = async (data: any, filename: string): Promise<void> =>
         await new Promise((resolve, reject) => {
             writer.on('finish', async () => {
 
-                if (needsUnzip) {
-                    const parentFolder = path.join(path.dirname(filename), '..');
-                    await decompress(filename, parentFolder);
-                    await fs.promises.unlink(filename);
-                }
+                try {
+                    if (needsUnzip) {
+                        const parentDir = path.dirname(filename);
+                        await decompress(filename, parentDir);
+                        await fs.promises.unlink(filename);
+
+                        // the unzip will create a new dir and we need to move files from this dir to the parent dir
+                        await moveFilesUp(parentDir);
+                    }
+                } catch (err) {
+                    reject(err);
+                };
+
 
                 resolve();
             });

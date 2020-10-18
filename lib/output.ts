@@ -12,33 +12,37 @@ import { DownloadOptions } from './types';
 export const getFilename = async (url: string, options?: DownloadOptions): Promise<string> => {
 
     // url format: https://codeload.github.com/username/repo/zip/branch where branch name may have slashes
-    const file = url.split('/zip/').pop()?.replace(/\//g, '-') + '.zip';
+    const branch = url.split('/zip/').pop()?.replace(/\//g, '-');
     const repo = url.split('/zip/').shift()?.split('/').pop();
 
-    let filename = `${repo}-${file}`;
-
-    if (!options?.zip) {
-        filename = filename.slice(0, -4); // remove the .zip end
-    }
+    let filename = `${repo}-${branch}`;
 
     if (options?.output) {
 
         const out = path.resolve(options.output);
+        filename = out;
 
+        // if it's not a directory, then checks if ends with .zip
         if (await exist(out)) {
-            if (await isDir(out)) {
-                filename = path.resolve(out, filename);
-            } else {
-                filename = out;
+            if (!(await isDir(out))) {
+                fileMustEndWithZip(filename);
             }
         } else {
-            if (!path.extname(out)) {
-                filename = path.resolve(out, filename);
-            } else {
-                filename = out;
+            if (path.extname(out)) {
+                fileMustEndWithZip(filename);
             }
         }
     }
 
+    if (options?.zip) {
+        filename += '.zip'
+    }
+
     return filename;
+}
+
+const fileMustEndWithZip = (filename: string): void => {
+    if (!filename.endsWith('.zip')) {
+        throw new Error('If output is a file, it must end with .zip');
+    }
 }

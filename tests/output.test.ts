@@ -18,12 +18,16 @@ describe('test if the output is set correctly', () => {
         // directory
         const dirWithoutZip = await getFilename(url, { output: process.cwd() } as DownloadOptions);
         const dirWithZip = await getFilename(url, { output: process.cwd(), zip: true } as DownloadOptions);
-        expect(dirWithoutZip).toBe(path.resolve(process.cwd(), 'repo-branch'));
-        expect(dirWithZip).toBe(path.resolve(process.cwd(), 'repo-branch.zip'));
+        expect(dirWithoutZip).toBe(process.cwd());
+        expect(dirWithZip).toBe(`${process.cwd()}.zip`);
 
         // filename was given
         const filename = path.resolve(process.cwd(), 'repo-branch.zip');
         expect(await getFilename(url, { output: filename } as DownloadOptions)).toBe(filename);
-        expect(await getFilename(url, { zip: false, output: filename } as DownloadOptions)).toBe(filename); // zip option should be ignored
+        expect(await getFilename(url, { output: filename, zip: false } as DownloadOptions)).toBe(filename); // zip option should be ignored
     });
+
+    it('checks if the output option is valid', async () => {
+        expect(getFilename(url, { output: './file.txt' } as DownloadOptions)).rejects.toBeTruthy();
+    })
 });
