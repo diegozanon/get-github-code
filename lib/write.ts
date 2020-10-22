@@ -44,7 +44,6 @@ export const writeOutput = async (data: any, filename: string): Promise<void> =>
                     reject(err);
                 };
 
-
                 resolve();
             });
 

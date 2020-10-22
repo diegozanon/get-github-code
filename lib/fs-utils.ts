@@ -11,15 +11,11 @@ export const exist = async (file: string): Promise<boolean> => {
 }
 
 export const isDir = async (file: string): Promise<boolean> => {
-
-    let stat;
     try {
-        stat = await fs.promises.lstat(file);
+        return (await fs.promises.lstat(file)).isDirectory();
     } catch (_) {
         return false;
     }
-
-    return stat.isDirectory();
 }
 
 export const rmdirRecursive = async (dir: string): Promise<void> => {
@@ -60,7 +56,13 @@ export const moveFilesUp = async (dir: string): Promise<void> => {
     const filesToMove = await fs.promises.readdir(mostRecentDir.path);
     for (const fileToMove of filesToMove) {
         const fullPathToMove = path.join(mostRecentDir.path, fileToMove);
-        fs.promises.rename(fullPathToMove, path.join(path.join(fullPathToMove, '..', '..'), fileToMove));
+        const newPath = path.join(path.join(fullPathToMove, '..', '..'), fileToMove);
+
+        if (await isDir(newPath)) { // if already exists and is a dir, delete all contents
+            await rmdirRecursive(newPath);
+        }
+
+        fs.promises.rename(fullPathToMove, newPath);
     }
 
     // removes the empty folder
