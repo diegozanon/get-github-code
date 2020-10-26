@@ -90,6 +90,6 @@ const getDefaultBranch = async (url: string): Promise<string> => {
 
 const isValid = (url: string): boolean => {
     // This regex "[^/]*" means "any character, except slash"
-    const regex = new RegExp('https://codeload\.github\.com/[^/]*/[^/]*/zip/[^/]*');
+    const regex = new RegExp('https://codeload\\.github\\.com/[^/]*/[^/]*/zip/[^/]*');
     return regex.test(url);
 }
