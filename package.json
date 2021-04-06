@@ -1,6 +1,6 @@
 {
     "name": "get-github-code",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Downloads a GitHub project source code (only the code, without the .git data)",
     "main": "out/index.js",
     "types": "out/index.d.ts",
@@ -53,7 +53,7 @@
     },
     "dependencies": {
         "@types/decompress": "^4.2.3",
-        "axios": "^0.20.0",
+        "axios": "^0.21.1",
         "decompress": "^4.2.1"
     }
 }
